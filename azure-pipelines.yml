@@ -4,9 +4,6 @@
 # https://aka.ms/yaml
 name: $(Date:yyyy).$(Month).$(DayOfMonth)-$(Rev:r)
 
-trigger:
-- main
-
 pool:
   name: estore-devops
 
