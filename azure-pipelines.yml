@@ -12,6 +12,7 @@ pool:
 parameters:
 - name: build_version          # name of the parameter; required
   type: string            # data types, see below
+  default: ''
 
 resources:
   pipelines:
