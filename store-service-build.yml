@@ -20,20 +20,13 @@ resources:
     source: 'test-publish-store-service-repo'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
 
 - download: service-repo
+  displayName: Download Store Service Repo
   artifact: store-service-repo
 
-- script: ls -al $(PIPELINE.WORKSPACE)/service-repo/store-service-repo
-
 - task: Maven@3
+  displayName: Set Project Version
   inputs:
     mavenPomFile: '$(Pipeline.Workspace)/service-repo/store-service-repo/pom.xml'
     goals: 'versions:set'
@@ -46,6 +39,7 @@ steps:
     sonarQubeRunAnalysis: false
 
 - task: Maven@3
+  displayName: Run Maven Build
   inputs:
     mavenPomFile: '$(Pipeline.Workspace)/service-repo/store-service-repo/pom.xml'
     goals: 'clean package'
@@ -59,12 +53,14 @@ steps:
     sonarQubeRunAnalysis: false
 
 - task: PublishCodeCoverageResults@1
+  displayName: Publish Jacoco Results
   inputs:
     codeCoverageTool: 'JaCoCo'
     summaryFileLocation: '$(Pipeline.Workspace)/service-repo/store-service-repo/store-service/target/site/jacoco-ut/jacoco.xml'
     reportDirectory: '$(Pipeline.Workspace)/service-repo/store-service-repo/store-service/target/site/jacoco-ut'
 
 - task: Bash@3
+  displayName: Zip App Jar for Deployment
   inputs:
     targetType: 'inline'
     script: |
@@ -75,6 +71,7 @@ steps:
       zip -u $(Build.ArtifactStagingDirectory)/app.zip applicationinsights-agent-3.0.2.jar
 
 - task: CopyFiles@2
+  displayName: Copy Jars to ArtifactStagingDirectory
   inputs:
     SourceFolder: '$(Pipeline.Workspace)'
     Contents: |
@@ -85,24 +82,28 @@ steps:
     CleanTargetFolder: true
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish Jars
   inputs:
     targetPath: '$(build.artifactstagingdirectory)/jars'
     artifact: 'jars'
     publishLocation: 'pipeline'
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish App Zip
   inputs:
     targetPath: '$(build.artifactstagingdirectory)/app.zip'
     artifact: 'zip'
     publishLocation: 'pipeline'
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish Config
   inputs:
     targetPath: '$(Pipeline.Workspace)/service-repo/store-service-repo/config'
     artifact: 'config'
     publishLocation: 'pipeline'
 
 - task: PublishPipelineArtifact@1
+  displayName: Publish Functional Tests
   inputs:
     targetPath: '$(Pipeline.Workspace)/service-repo/store-service-repo/store-service-functional-tests'
     artifact: 'store-service-functional-tests'
