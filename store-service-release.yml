@@ -20,7 +20,7 @@ variables:
 stages:
 - stage: download_artifacts
   jobs:
-  - job:
+  - job: download_artifacts
     steps:
     - download: store-service
     - download: estore-devops
