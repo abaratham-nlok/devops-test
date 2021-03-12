@@ -9,6 +9,17 @@ trigger:
 pool:
   name: estore-devops
 
+parameters:
+- name: build_version          # name of the parameter; required
+  type: string            # data types, see below
+
+resources:
+  pipelines:
+  - pipeline: store-service-repo
+    source: '[TEST] - Publish Store Service Repo'
+    branch: releases/M159
+    version: ${{ parameters.build_version }}
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
