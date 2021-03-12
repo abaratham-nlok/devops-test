@@ -26,9 +26,9 @@ stages:
     - download: estore-devops
 - template: templates/deploy-to-env.yml
   parameters: 
-    env: ${{ variables['env'] }}
-    platform: ${{ variables['platform'] }}
-    region: ${{ variables['region'] }}
+    env: '$(env)'
+    platform: '$(platform)'
+    region: '$(region)'
     app: store
     app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
     app-config-location: '$(Pipeline.Workspace)/store-service/config'
