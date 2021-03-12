@@ -19,8 +19,7 @@ resources:
   - pipeline: 'service-repo'
     project: estore-devops
     source: 'test-publish-store-service-repo'
-  - pipeline: 'service-repo'
-    project: test
+  - pipeline: 'test'
     source: 'abaratham-nlok.devops-test (1)'
 
 steps:
