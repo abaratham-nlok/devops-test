@@ -22,8 +22,8 @@ stages:
       steps:
       - task: Bash@3
         inputs:
-          filePath: ${{ parameters.estore-devops-root }}/scripts/upload_config.sh
-          arguments: ${{ parameters.arm-client-id }} ${{ parameters.arm-tenant-id }} ${{ parameters.arm-client-secret }} ${{ parameters.region }} ${{ parameters.platform }} ${{ parameters.app }} ${{ parameters.env }} ${{ parameters.app-config-location }}
+          filePath: '${{ parameters.estore-devops-root }}/scripts/upload_config.sh'
+          arguments: '${{ parameters.arm-client-id }} ${{ parameters.arm-tenant-id }} ${{ parameters.arm-client-secret }} ${{ parameters.region }} ${{ parameters.platform }} ${{ parameters.app }} ${{ parameters.env }} ${{ parameters.app-config-location }}'
       
       - task: AzureAppServiceManage@0
         inputs:
