@@ -1,1 +1,31 @@
+trigger:
+  branches:
+    exclude:
+    - '*' 
+    
+resources:
+  pipelines:
+  - pipeline: 'store-service'
+    project: estore-devops
+    source: '[YAML] - Build Store Service'
+  - pipeline: 'estore-devops'
+    source: 'Publish estore-devops artifact (drop)'
 
+variables:
+- group: 'Env vars - MUSW1-EN01 DEV app deploy'
+
+stages:
+  - template: templates/release-to-env.yml
+    parameters: 
+        env: $(env)
+        platform: $(platform)
+        region: $(region)
+        app: 'store'
+        app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
+        app-config-location: '$(Pipeline.Workspace)/store-service/config'
+        estore-devops-root: '$(Pipeline.Workspace)/estore-devops/drop'
+        arm-client-id: '$(ARM_CLIENT_ID)'
+        arm-client-secret: '$(ARM_CLIENT_SECRET)'
+        arm-subscription-id: '$(ARM_SUBSCRIPTION_ID)'
+        appconfig-endpoint: '$(appconfig_readonly_endpoint)'
+        sp-service-conn-name: 'App deploy: MUSW1-EN01 DEV'
