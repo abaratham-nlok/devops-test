@@ -16,7 +16,7 @@ pool:
 
 resources:
   pipelines:
-  - pipeline: '835'
+  - pipeline: '[TEST] - Publish Store Service Repo'
     source: '[TEST] - Publish Store Service Repo'
     branch: releases/M159
 
