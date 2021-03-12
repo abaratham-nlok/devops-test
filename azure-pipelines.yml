@@ -17,6 +17,7 @@ pool:
 resources:
   pipelines:
   - pipeline: 'service-repo'
+    project: estore-devops
     source: 'test-publish-store-service-repo'
 
 steps:
@@ -31,4 +32,4 @@ steps:
 - download: service-repo
   artifact: store-service-repo
 
-- script: ll $(PIPELINE.WORKSPACE)/service-repo/store-service-repo
+- script: ls -al $(PIPELINE.WORKSPACE)/service-repo/store-service-repo
