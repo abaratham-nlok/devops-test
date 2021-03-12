@@ -4,6 +4,11 @@
 # https://aka.ms/yaml
 name: $(Date:yyyy).$(Month).$(DayOfMonth)-$(Rev:r)
 
+trigger:
+  branches:
+    exclude:
+    - '*' 
+
 pool:
   name: estore-devops
 
