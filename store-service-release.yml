@@ -3,6 +3,9 @@ trigger:
     exclude:
     - '*' 
     
+pool:
+  name: estore-devops
+
 resources:
   pipelines:
   - pipeline: 'store-service'
@@ -15,7 +18,7 @@ variables:
 - group: 'Env vars - MUSW1-EN01 DEV app deploy'
 
 stages:
-- stage: Download artifacts
+- stage: download_artifacts
   jobs:
   - job: Download
     steps:
