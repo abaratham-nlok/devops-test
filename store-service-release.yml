@@ -15,6 +15,12 @@ variables:
 - group: 'Env vars - MUSW1-EN01 DEV app deploy'
 
 stages:
+- stage: Download artifacts
+  jobs:
+  - job: Download
+    steps:
+    - download: store-servivce
+    - download: estore-devops
 - template: templates/deploy-to-env.yml
   parameters: 
     env: ${{ variables['env'] }}
