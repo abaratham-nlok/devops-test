@@ -22,7 +22,7 @@ stages:
   jobs:
   - job:
     steps:
-    - download: store-servivce
+    - download: store-service
     - download: estore-devops
 - template: templates/deploy-to-env.yml
   parameters: 
