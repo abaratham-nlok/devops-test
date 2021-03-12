@@ -16,3 +16,16 @@ variables:
 
 stages:
 - template: templates/deploy-to-env.yml
+  parameters: 
+    env: ${{ variables['env'] }}
+    platform: ${{ variables['platform'] }}
+    region: ${{ variables['region'] }}
+    app: store
+    app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
+    app-config-location: '$(Pipeline.Workspace)/store-service/config'
+    estore-devops-root: '$(Pipeline.Workspace)/estore-devops/drop'
+    arm-client-id: '$(ARM_CLIENT_ID)'
+    arm-client-secret: '$(ARM_CLIENT_SECRET)'
+    arm-subscription-id: '$(ARM_SUBSCRIPTION_ID)'
+    appconfig-endpoint: '$(appconfig_readonly_endpoint)'
+    sp-service-conn-name: 'App deploy: MUSW1-EN01 DEV'
