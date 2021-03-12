@@ -16,9 +16,8 @@ pool:
 
 resources:
   pipelines:
-  - pipeline: '[TEST] - Publish Store Service Repo'
-    source: '[TEST] - Publish Store Service Repo'
-    branch: releases/M159
+  - pipeline: 'test-publish-store-service-repo'
+    source: 'test-publish-store-service-repo'
 
 steps:
 - script: echo Hello, world!
