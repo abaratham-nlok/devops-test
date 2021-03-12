@@ -19,6 +19,7 @@ stages:
     - job: Deploy ${{ parameters.app }} to ${{ parameters.env }}
       pool:
         name: estore-devops
+      steps:
       - task: Bash@3
         inputs:
           filePath: ${{ parameters.estore-devops-root }}/scripts/upload_config.sh
