@@ -14,9 +14,9 @@ parameters:
   env-var-group: ''
 
 stages:
-  - stage: Deploy ${{ parameters['app'] }} to ${{ parameters['env'] }}
+  - stage: Deploy-${{ parameters['app'] }}-to-${{ parameters['env'] }}
     jobs:
-    - job: Deploy ${{ parameters['app'] }} to ${{ parameters['env'] }}
+    - job: Deploy-${{ parameters['app'] }}-to-${{ parameters['env'] }}
       pool:
         name: estore-devops
       steps:
