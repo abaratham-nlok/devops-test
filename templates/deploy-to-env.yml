@@ -56,7 +56,7 @@ stages:
 
       - task: Bash@3
         inputs:
-          filePath: ${{ parameters['estore-devops-root'] }}/scripts/upload_config.sh
+          filePath: ${{ parameters['estore-devops-root'] }}/scripts/wait_for_service.sh
           arguments: https://${{ parameters['region'] }}-${{ parameters['platform'] }}-${{ parameters['app'] }}-${{ parameters['env'] }}-as-alt.azurewebsites.net/actuator/health/ping 600
           
       - task: AzureAppServiceManage@0
