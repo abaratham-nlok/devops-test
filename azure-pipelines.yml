@@ -2,6 +2,7 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+name: $(Date:yyyy).$(Month).$(DayOfMonth)-$(Rev:r)
 
 trigger:
 - main
@@ -36,7 +37,7 @@ steps:
 
 - task: Maven@3
   inputs:
-    mavenPomFile: '$(Pipeline.Workspace)/pom.xml'
+    mavenPomFile: '$(Pipeline.Workspace)/service-repo/store-service-repo/pom.xml'
     goals: 'versions:set'
     options: '-DnewVersion=$(Build.BuildNumber)'
     publishJUnitResults: false
@@ -48,7 +49,7 @@ steps:
 
 - task: Maven@3
   inputs:
-    mavenPomFile: '$(Pipeline.Workspace)/pom.xml'
+    mavenPomFile: '$(Pipeline.Workspace)/service-repo/store-service-repo/pom.xml'
     goals: 'clean package'
     options: '-e -U'
     publishJUnitResults: true
