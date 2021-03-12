@@ -8,7 +8,7 @@ parameters:
   estore-devops-root: ''
   arm-client-id: ''
   arm-client-secret: ''
-  arm-subscription-id: ''
+  arm-tenant-id: ''
   appconfig-endpoint: ''
   sp-service-conn-name: ''
   env-var-group: ''
