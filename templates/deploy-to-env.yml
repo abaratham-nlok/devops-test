@@ -1,28 +1,16 @@
-parameters: 
-  - name: env
-    type: string
-  - name: platform
-    type: string
-  - name: region
-    type: string
-  - name: app
-    type: string
-  - name: app-zip-location
-    type: string
-  - name: app-config-location
-    type: string
-  - name: estore-devops-root
-    type: string
-  - name: arm-client-id
-    type: string
-  - name: arm-client-secret
-    type: string
-  - name: arm-subscription-id
-    type: string
-  - name: appconfig-endpoint
-    type: string
-  - name: sp-service-conn-name
-    type: string
+parameters:
+  env: ''
+  platform: ''
+  region: ''
+  app: ''
+  app-zip-location: ''
+  app-config-location: ''
+  estore-devops-root: ''
+  arm-client-id: ''
+  arm-client-secret: ''
+  arm-subscription-id: ''
+  appconfig-endpoint: ''
+  sp-service-conn-name: ''
 
 stages:
   - stage: Deploy ${{ parameters.app }} to ${{ parameters.env }}
