@@ -31,4 +31,4 @@ steps:
 - download: service-repo
   artifact: store-service-repo
 
-- script: ls $(PIPELINE.WORKSPACE)/service-repo/store-service-repo
+- script: ll $(PIPELINE.WORKSPACE)/service-repo/store-service-repo
