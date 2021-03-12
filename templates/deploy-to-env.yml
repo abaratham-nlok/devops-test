@@ -1,1 +1,79 @@
+parameters: 
+  - name: env
+    type: string
+  - name: platform
+    type: string
+  - name: region
+    type: string
+  - name: app
+    type: string
+  - name: app-zip-location
+    type: string
+  - name: app-config-location
+    type: string
+  - name: estore-devops-root
+    type: string
+  - name: arm-client-id
+    type: string
+  - name: arm-client-secret
+    type: string
+  - name: arm-subscription-id
+    type: string
+  - name: appconfig-endpoint
+    type: string
+  - name: sp-service-conn-name
+    type: string
+
+stages:
+  - stage: Deploy ${{ parameters.app }} to ${{ parameters.env }}
+    jobs:
+    - job: Deploy ${{ parameters.app }} to ${{ parameters.env }}
+      pool:
+        name: estore-devops
+      - task: Bash@3
+        inputs:
+          filePath: ${{ parameters.estore-devops-root }}/scripts/upload_config.sh
+          arguments: ${{ parameters.arm-client-id }} ${{ parameters.arm-tenant-id }} ${{ parameters.arm-client-secret }} ${{ parameters.region }} ${{ parameters.platform }} ${{ parameters.app }} ${{ parameters.env }} ${{ parameters.app-config-location }}
+      
+      - task: AzureAppServiceManage@0
+        inputs:
+          azureSubscription: ${{ parameters.sp-service-conn-name }}
+          Action: 'Stop Azure App Service'
+          WebAppName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.app }}-${{ parameters.env }}-as
+          SpecifySlotOrASE: true
+          ResourceGroupName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.env }}-rg
+          Slot: 'alt'
+
+      - task: AzureRmWebAppDeployment@4
+        inputs:
+          ConnectionType: 'AzureRM'
+          azureSubscription: ${{ parameters.sp-service-conn-name }}
+          appType: 'webAppLinux'
+          WebAppName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.app }}-${{ parameters.env }}-as
+          deployToSlotOrASE: true
+          ResourceGroupName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.env }}-rg
+          SlotName: 'alt'
+          packageForLinux: ${{ parameters.app-zip-location }}
+
+      - task: AzureAppServiceManage@0
+        inputs:
+          azureSubscription: ${{ parameters.sp-service-conn-name }}
+          Action: 'Start Azure App Service'
+          WebAppName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.app }}-${{ parameters.env }}-as
+          SpecifySlotOrASE: true
+          ResourceGroupName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.env }}-rg
+          Slot: 'alt'
+
+      - task: Bash@3
+        inputs:
+          filePath: ${{ parameters.estore-devops-root }}/scripts/upload_config.sh
+          arguments: https://${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.app }}-${{ parameters.env }}-as-alt.azurewebsites.net/actuator/health/ping 600
+          
+      - task: AzureAppServiceManage@0
+        inputs:
+          azureSubscription: ${{ parameters.sp-service-conn-name }}
+          Action: 'Swap Slots'
+          WebAppName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.app }}-${{ parameters.env }}-as
+          ResourceGroupName: ${{ parameters.region }}-${{ parameters.platform }}-${{ parameters.env }}-rg
+          SourceSlot: 'alt'        
 
