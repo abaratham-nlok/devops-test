@@ -16,7 +16,7 @@ pool:
 
 resources:
   pipelines:
-  - pipeline: 'test-publish-store-service-repo'
+  - pipeline: 'service-repo'
     source: 'test-publish-store-service-repo'
 
 steps:
@@ -27,3 +27,6 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- download: service-repo
+    artifact: store-service-repo
