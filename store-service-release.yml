@@ -15,7 +15,7 @@ resources:
     source: 'Publish estore-devops artifact (drop)'
 
 variables:
-- group: 'Env vars - MUSW1-EN01 DEV app deploy'
+- group: 'Env vars - MUSW1-EN01 QA app deploy'
 
 stages:
 - stage: download_artifacts
@@ -37,4 +37,4 @@ stages:
     arm-client-secret: '$(ARM_CLIENT_SECRET)'
     arm-subscription-id: '$(ARM_SUBSCRIPTION_ID)'
     appconfig-endpoint: '$(appconfig_readonly_endpoint)'
-    sp-service-conn-name: 'App deploy: MUSW1-EN01 DEV'
+    sp-service-conn-name: 'App deploy: MUSW1-EN01 QA'
