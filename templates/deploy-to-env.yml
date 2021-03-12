@@ -11,9 +11,12 @@ parameters:
   arm-subscription-id: ''
   appconfig-endpoint: ''
   sp-service-conn-name: ''
+  env-var-group: ''
 
 stages:
   - stage: Deploy ${{ parameters.app }} to ${{ parameters.env }}
+    variables:
+    - group: ${{ parameters.env-var-group }}
     jobs:
     - job: Deploy ${{ parameters.app }} to ${{ parameters.env }}
       pool:
