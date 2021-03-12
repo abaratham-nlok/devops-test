@@ -18,7 +18,6 @@ resources:
   pipelines:
   - pipeline: 'service-repo'
     source: 'test-publish-store-service-repo'
-    version: 65465
 
 steps:
 - script: echo Hello, world!
