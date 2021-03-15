@@ -25,6 +25,7 @@ stages:
     - download: estore-devops
 - template: templates/deploy-to-env.yml
   parameters: 
+    app: 'store'
     app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
     app-config-location: '$(Pipeline.Workspace)/store-service/config'
     estore-devops-root: '$(Pipeline.Workspace)/estore-devops/drop'
