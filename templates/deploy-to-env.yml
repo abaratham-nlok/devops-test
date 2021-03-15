@@ -1,4 +1,5 @@
 parameters:
+  app: ''
   app-zip-location: ''
   app-config-location: ''
   estore-devops-root: ''
