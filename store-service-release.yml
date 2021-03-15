@@ -13,8 +13,6 @@ resources:
     source: '[YAML] - Build Store Service'
   - pipeline: 'estore-devops'
     source: 'Publish estore-devops artifact (drop)'
-variables:
-- group: 'Env vars - MUSW1-EN01 QA app deploy'
 
 stages:
 - stage: download_artifacts
