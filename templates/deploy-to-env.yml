@@ -18,13 +18,13 @@ stages:
       - task: Bash@3
         inputs:
           filePath: ${{ parameters['estore-devops-root'] }}/scripts/upload_config.sh
-          arguments: $(ARM_CLIENT_ID) $(ARM_TENANT_ID) $(ARM_CLIENT_SECRET) $(region) $(platform) $(app) $(env) ${{ parameters['estore-devops-root'] }} ${{ parameters['app-config-location'] }}
+          arguments: $(ARM_CLIENT_ID) $(ARM_TENANT_ID) $(ARM_CLIENT_SECRET) $(region) $(platform) ${{ parameters['app'] }} $(env) ${{ parameters['estore-devops-root'] }} ${{ parameters['app-config-location'] }}
       
       - task: AzureAppServiceManage@0
         inputs:
           azureSubscription: ${{ parameters['sp-service-conn-name'] }}
           Action: 'Stop Azure App Service'
-          WebAppName: $(region)-$(platform)-$(app)-$(env)-as
+          WebAppName: $(region)-$(platform)-${{ parameters['app'] }}-$(env)-as
           SpecifySlotOrASE: true
           ResourceGroupName: $(region)-$(platform)-$(env)-rg
           Slot: 'alt'
@@ -34,7 +34,7 @@ stages:
           ConnectionType: 'AzureRM'
           azureSubscription: ${{ parameters['sp-service-conn-name'] }}
           appType: 'webAppLinux'
-          WebAppName: $(region)-$(platform)-$(app)-$(env)-as
+          WebAppName: $(region)-$(platform)-${{ parameters['app'] }}-$(env)-as
           deployToSlotOrASE: true
           ResourceGroupName: $(region)-$(platform)-$(env)-rg
           SlotName: 'alt'
@@ -44,7 +44,7 @@ stages:
         inputs:
           azureSubscription: ${{ parameters['sp-service-conn-name'] }}
           Action: 'Start Azure App Service'
-          WebAppName: $(region)-$(platform)-$(app)-$(env)-as
+          WebAppName: $(region)-$(platform)-${{ parameters['app'] }}-$(env)-as
           SpecifySlotOrASE: true
           ResourceGroupName: $(region)-$(platform)-$(env)-rg
           Slot: 'alt'
@@ -52,13 +52,13 @@ stages:
       - task: Bash@3
         inputs:
           filePath: ${{ parameters['estore-devops-root'] }}/scripts/wait_for_service.sh
-          arguments: https://$(region)-$(platform)-$(app)-$(env)-as-alt.azurewebsites.net/actuator/health/ping 600
+          arguments: https://$(region)-$(platform)-${{ parameters['app'] }}-$(env)-as-alt.azurewebsites.net/actuator/health/ping 600
           
       - task: AzureAppServiceManage@0
         inputs:
           azureSubscription: ${{ parameters['sp-service-conn-name'] }}
           Action: 'Swap Slots'
-          WebAppName: $(region)-$(platform)-$(app)-$(env)-as
+          WebAppName: $(region)-$(platform)-${{ parameters['app'] }}-$(env)-as
           ResourceGroupName: $(region)-$(platform)-$(env)-rg
           SourceSlot: 'alt'        
 
