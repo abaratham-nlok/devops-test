@@ -23,11 +23,13 @@ stages:
     steps:
     - download: store-service
     - download: estore-devops
-- template: templates/deploy-to-env.yml
+- template: templates/release.yml
   parameters: 
     app: 'store'
     app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
     app-config-location: '$(Pipeline.Workspace)/store-service/config'
     estore-devops-root: '$(Pipeline.Workspace)/estore-devops/drop'
-    sp-service-conn-name: 'App deploy: MUSW1-EN01 QA'
-    env-var-group: 'Env vars - MUSW1-EN01 QA app deploy'
+    dev-sp-service-conn: 'App deploy: MUSW1-EN01 DEV'
+    dev-env-var-group: 'Env vars - MUSW1-EN01 DEV app deploy'
+    qa-sp-service-conn: 'App deploy: MUSW1-EN01 QA'
+    qa-env-var-group: 'Env vars - MUSW1-EN01 QA app deploy'
