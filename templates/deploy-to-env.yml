@@ -5,9 +5,10 @@ parameters:
   estore-devops-root: ''
   sp-service-conn-name: ''
   env-var-group: ''
+  env: ''
 
 stages:
-- stage: Deploy_app
+- stage: Deploy_app_${{ parameters['env'] }}
   variables:
   - group: ${{ parameters['env-var-group'] }}
   jobs:
