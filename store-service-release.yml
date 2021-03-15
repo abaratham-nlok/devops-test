@@ -13,12 +13,11 @@ resources:
     source: '[YAML] - Build Store Service'
   - pipeline: 'estore-devops'
     source: 'Publish estore-devops artifact (drop)'
-
+variables:
+- group: 'Env vars - MUSW1-EN01 QA app deploy'
 
 stages:
 - stage: download_artifacts
-  variables:
-  - group: 'Env vars - MUSW1-EN01 QA app deploy'
   jobs:
   - job: download_artifacts
     steps:
@@ -26,15 +25,8 @@ stages:
     - download: estore-devops
 - template: templates/deploy-to-env.yml
   parameters: 
-    env: $(env)
-    platform: $(platform)
-    region: $(region)
-    app: store
     app-zip-location: '$(Pipeline.Workspace)/store-service/zip/app.zip'
     app-config-location: '$(Pipeline.Workspace)/store-service/config'
     estore-devops-root: '$(Pipeline.Workspace)/estore-devops/drop'
-    arm-client-id: '$(ARM_CLIENT_ID)'
-    arm-client-secret: '$(ARM_CLIENT_SECRET)'
-    arm-tenant-id: '$(ARM_TENANT_ID)'
-    appconfig-endpoint: '$(appconfig_readonly_endpoint)'
     sp-service-conn-name: 'App deploy: MUSW1-EN01 QA'
+    env-var-group: 'Env vars - MUSW1-EN01 QA app deploy'
