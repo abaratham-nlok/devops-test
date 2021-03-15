@@ -11,7 +11,7 @@ parameters:
 stages: 
   - template: deploy-to-env.yml
     parameters: 
-      app: '${{ parameters['app'] }}
+      app: '${{ parameters['app'] }}'
       app-zip-location: '${{ parameters['app-zip-location'] }}'
       app-config-location: '${{ parameters['app-config-location'] }}'
       estore-devops-root: '${{ parameters['estore-devops-root'] }}'
@@ -20,7 +20,7 @@ stages:
 
   - template: deploy-to-env.yml
     parameters: 
-      app: '${{ parameters['app'] }}
+      app: '${{ parameters['app'] }}'
       app-zip-location: '${{ parameters['app-zip-location'] }}'
       app-config-location: '${{ parameters['app-config-location'] }}'
       estore-devops-root: '${{ parameters['estore-devops-root'] }}'
