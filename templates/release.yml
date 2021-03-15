@@ -11,19 +11,18 @@ parameters:
 stages: 
 - template: deploy-to-env.yml
   parameters: 
-    app: '${{ parameters['app'] }}'
-    app-zip-location: '${{ parameters['app-zip-location'] }}'
-    app-config-location: '${{ parameters['app-config-location'] }}'
-    estore-devops-root: '${{ parameters['estore-devops-root'] }}'
-    sp-service-conn-name: '${{ parameters['dev-sp-service-conn'] }}'
-    env-var-group: '${{ parameters['dev-env-var-group'] }}'   
+    app: ${{ parameters['app'] }}
+    app-zip-location: ${{ parameters['app-zip-location'] }}
+    app-config-location: ${{ parameters['app-config-location'] }}
+    estore-devops-root: ${{ parameters['estore-devops-root'] }}
+    sp-service-conn-name: ${{ parameters['dev-sp-service-conn'] }}
+    env-var-group: ${{ parameters['dev-env-var-group'] }}   
 
 - template: deploy-to-env.yml
   parameters: 
-    app: '${{ parameters['app'] }}'
-    app-zip-location: '${{ parameters['app-zip-location'] }}'
-    app-config-location: '${{ parameters['app-config-location'] }}'
-    estore-devops-root: '${{ parameters['estore-devops-root'] }}'
-    sp-service-conn-name: '${{ parameters['qa-sp-service-conn'] }}'
-    env-var-group: '${{ parameters['qa-env-var-group'] }}'   
-
+    app: ${{ parameters['app'] }}
+    app-zip-location: ${{ parameters['app-zip-location'] }}
+    app-config-location: ${{ parameters['app-config-location'] }}
+    estore-devops-root: ${{ parameters['estore-devops-root'] }}
+    sp-service-conn-name: ${{ parameters['qa-sp-service-conn'] }}
+    env-var-group: ${{ parameters['qa-env-var-group'] }}
